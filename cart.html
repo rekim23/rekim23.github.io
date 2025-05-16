@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" type="text/css" href="css/cart.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="cart-header">
+        <h1>Your Shopping Cart</h1>
+        <p>Review your items before checkout</p>
+    </section>
+
+    <section class="cart-items" id="cart-items">
+        <!-- Cart items will be inserted here by JavaScript -->
+    </section>
+
+    <section class="cart-summary">
+        <h2>Total: ₱<span id="total">0.00</span></h2>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Clothing Store</p>
+    </footer>
+
+    <!-- ✅ Inline JavaScript here -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cartItemsContainer = document.getElementById("cart-items");
+        const totalDisplay = document.getElementById("total");
+
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to update the total price
+        function updateTotal() {
+            let total = 0;
+            cart.forEach(item => {
+                const price = parseFloat(item.price) || 0;
+                const quantity = parseInt(item.quantity) || 0;
+                total += price * quantity;
+            });
+            totalDisplay.textContent = total.toFixed(2);
+        }
+
+        // Function to render cart items
+        function renderCart() {
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+
+            cart.forEach(item => {
+                const cartItemDiv = document.createElement('div');
+                cartItemDiv.classList.add('cart-item');
+                cartItemDiv.dataset.id = item.id;
+
+                cartItemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>Price: ₱${parseFloat(item.price).toFixed(2)}</p>
+                    <label for="quantity-${item.id}">Quantity:</label>
+                    <input type="number" id="quantity-${item.id}" class="quantity" value="${item.quantity}" min="1">
+                    <button class="remove-btn">Remove</button>
+                `;
+                cartItemsContainer.appendChild(cartItemDiv);
+            });
+
+            updateTotal();
+        }
+
+        // Listen for quantity changes
+        cartItemsContainer.addEventListener("input", function (e) {
+            if (e.target.classList.contains("quantity")) {
+                const itemId = e.target.closest(".cart-item").dataset.id;
+                const newQuantity = parseInt(e.target.value) || 1;
+
+                const itemIndex = cart.findIndex(item => item.id === itemId);
+                if (itemIndex !== -1) {
+                    cart[itemIndex].quantity = newQuantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateTotal(); // Only update total — no need to re-render
+                }
+            }
+        });
+
+        // Listen for item removal
+        cartItemsContainer.addEventListener("click", function (e) {
+            if (e.target.classList.contains("remove-btn")) {
+                const itemId = e.target.closest(".cart-item").dataset.id;
+                cart = cart.filter(item => item.id !== itemId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart(); // Re-render after removal
+            }
+        });
+
+        // Initial render
+        renderCart();
+    });
+</script>
+</body>
+</html>

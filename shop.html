@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Clothing Store</title>
+    <link rel="stylesheet" type="text/css" href="css/shop.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="shop-header">
+        <div class="shop-content">
+            <h1>Shop Our Collection</h1>
+            <p>Explore our latest collection of shirts, hoodies, pants, and more!</p>
+        </div>
+    </section>
+
+    <section class="shop-products">
+        <!-- Shirts Section -->
+        <h2>Shirts</h2>
+        <div class="products">
+            <div class="product" data-id="1" data-name="T-shirt" data-price="600">
+                <img src="image/t3.jpg" alt="Basic T-shirt">
+                <h3></h3>
+                <p>₱600</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="2" data-name="T-shirt" data-price="800">
+                <img src="image/t1.jpg" alt="Graphic T-shirt">
+                <h3></h3>
+                <p>₱800</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="3" data-name="T-shirt" data-price="700">
+                <img src="image/t2.jpg" alt="Striped T-shirt">
+                <h3></h3>
+                <p>₱700</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Hoodies Section -->
+        <h2>Hoodies</h2>
+        <div class="products">
+            <div class="product" data-id="4" data-name="" data-price="1400">
+                <img src="image/h2.jpg" alt="Cozy Hoodie">
+                <h3></h3>
+                <p>₱1400</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="5" data-name="" data-price="1100">
+                <img src="image/h4.jpg" alt="Pullover Hoodie">
+                <h3></h3>
+                <p>₱1100</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="6" data-name="" data-price="900">
+                <img src="image/s1.jpg" alt="Zip-up Hoodie">
+                <h3></h3>
+                <p>₱900</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Pants Section -->
+        <h2>Pants</h2>
+        <div class="products">
+            <div class="product" data-id="7" data-name="" data-price="800">
+                <img src="image/p2.png" alt="Slim Fit Pants">
+                <h3></h3>
+                <p>₱800</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="8" data-name="" data-price="900">
+                <img src="image/p1.png" alt="Casual Pants">
+                <h3></h3>
+                <p>₱900</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+            <div class="product" data-id="9" data-name="" data-price="700">
+                <img src="image/p3.png" alt="Jogger Pants">
+                <h3></h3>
+                <p>₱700</p>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Clothing Store</p>
+    </footer>
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const productElement = button.parentElement;
+                const productId = productElement.getAttribute('data-id');
+                const productName = productElement.getAttribute('data-name');
+                const productPrice = parseFloat(productElement.getAttribute('data-price'));
+                const productImage = productElement.querySelector('img').getAttribute('src');
+
+                // Check if product already in cart
+                const existingProduct = cart.find(item => item.id === productId);
+                if (existingProduct) {
+                    existingProduct.quantity += 1; // Increase quantity
+                } else {
+                    // Add new product with quantity and image
+                    const product = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        quantity: 1,
+                        image: productImage
+                    };
+                    cart.push(product);
+                }
+
+                // Save updated cart
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                alert(`${productName} has been added to your cart.`);
+            });
+        });
+    </script>
+</body>
+</html>
