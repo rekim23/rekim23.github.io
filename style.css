@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    padding: 1rem 0;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li {
+    font-size: 1.2rem;
+}
+
+header nav ul li a {
+    color: white;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    background: url('https://via.placeholder.com/1200x400') no-repeat center center;
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: black;
+}
+
+/* Featured Products */
+.featured-products {
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: white;
+    margin-top: 2rem;
+}
+
+.featured-products h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Products Grid */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 200px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.product {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+}
+
+.product img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product h3 {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+}
+
+.product p {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 3rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive for 430px and below */
+@media (max-width: 430px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .featured-products h2 {
+        font-size: 2rem;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .product {
+        max-width: 100%;
+    }
+
+    .product img {
+        height: 200px;
+    }
+}
