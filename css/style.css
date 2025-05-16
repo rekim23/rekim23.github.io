@@ -24,14 +24,17 @@ header nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap; /* allow wrapping on very small screens */
 }
 
-/* Main menu */
+/* Main menu and login menu */
 .main-menu,
 .login-menu {
     list-style: none;
     display: flex;
     gap: 1.5rem;
+    /* Prevent login menu from breaking line */
+    flex-wrap: nowrap;
 }
 
 /* Navigation links */
@@ -141,11 +144,19 @@ footer {
     header nav {
         flex-direction: column;
         gap: 1rem;
+        align-items: stretch; /* make nav children full width */
     }
     
     .main-menu,
     .login-menu {
         justify-content: center;
+        width: 100%; /* full width for better stacking */
+    }
+    
+    .main-menu li,
+    .login-menu li {
+        flex: 1; /* distribute menu items equally */
+        text-align: center;
     }
     
     .products {
